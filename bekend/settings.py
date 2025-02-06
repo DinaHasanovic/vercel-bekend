@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-ktn$!%7=3e4)k(%3c%tbf2z-*(1^58m4rthv5tg57jlv^j)*6%'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = []
 
@@ -31,23 +31,23 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'whitenoise.runserver_nostatic'
+    'whitenoise.runserver_nostatic',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'playground',  # Tvoj app
-    'corsheaders',  # Dodano za CORS
+    'corsheaders',
+    'playground'
 ]
 
 MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware',  # Dodano kao prvi middleware za CORS
-    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
+    "corsheaders.middleware.CorsMiddleware",
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -115,21 +115,17 @@ USE_I18N = True
 
 USE_TZ = True
 
+CORS_ORIGIN_ALLOW_ALL = True
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = 'static/'
+# STATIC_DIRS = [os.path.join(BASE_DIR, 'staticfiles')]
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-# CORS settings (omogućavanje zahteva sa frontend-a na localhost:3000)
-CORS_ALLOWED_ORIGINS = [
-    'http://localhost:3000',  # Dodato, omogućava zahteve sa ovog domena
-]
-
-# Ako želiš da dozvoliš sve domene (samo za razvojne svrhe), možeš koristiti:
-# CORS_ALLOW_ALL_ORIGINS = True
